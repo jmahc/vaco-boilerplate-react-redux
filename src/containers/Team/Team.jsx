@@ -10,7 +10,11 @@ const Team = () => (
     <Layout>
       <Panel>
         <h1>Team Page!</h1>
+        <br />
         <a href="/about.html">Back to AboutHTML homepage.</a>
+        <br />
+        <br />
+        <a href="/">Back to IndexHTML homepage.</a>
       </Panel>
       <Panel>
         <Card style={{ width: '350px' }}>

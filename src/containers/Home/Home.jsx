@@ -16,7 +16,12 @@ const Home = ({
     <h4>{greeting}</h4>
     <Button raised primary onClick={onIncrementClick}>increment</Button>
     <Button raised primary onClick={onGreetClick}>greet</Button>
+    <br />
+    <br />
     <Link to="/about">About</Link>
+    <br />
+    <br />
+    <Link to="/team">Team</Link>
   </div>
 );
 

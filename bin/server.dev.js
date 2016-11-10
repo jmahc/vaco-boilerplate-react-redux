@@ -16,7 +16,7 @@ const app = express();
 const compiler = webpack(config);
 
 const port = process.env.PORT || 3000;
-const root = `${process.cwd()}/static/`;
+const root = `${process.cwd()}/public/`;
 global.__DEVELOPMENT__ = true;
 const urlLocation = `http://localhost:${port}`;
 

@@ -8,7 +8,8 @@ const PurifyCSSPlugin = require('purifycss-webpack-plugin');
 module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
-    index: path.join(__dirname, 'src', 'index.jsx'),
+    index: path.join(__dirname, 'src', 'pages', 'index.jsx'),
+    about: path.join(__dirname, 'src', 'pages', 'about.jsx'),
   },
   output: {
     path: path.join(__dirname, '/tmp/public'),
@@ -69,8 +70,20 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
+    // new HtmlWebpackPlugin({
+    //   template: path.join(__dirname, 'public', 'index.html'),
+    // }),
     new HtmlWebpackPlugin({
+      title: 'Welcome To the VACO React/Redux Starter',
+      filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
+      chunks: ['index'],
+    }),
+    new HtmlWebpackPlugin({
+      title: 'About Us',
+      filename: 'about.html',
+      template: path.join(__dirname, 'public', 'index.html'),
+      chunks: ['about'],
     }),
     new PurifyCSSPlugin({
       basePath: process.cwd(),
