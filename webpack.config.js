@@ -3,13 +3,15 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const utility = require('./util');
+
 module.exports = {
   context: path.join(__dirname),
   devtool: '#source-map',
-  entry: [
-    'webpack-hot-middleware/client?path=/__webpack_hmr',
-    './src/index.jsx',
-  ],
+  entry: {
+    index: utility.entryPoint('index'),
+    about: utility.entryPoint('about'),
+  },
   output: {
     path: __dirname,
     publicPath: '/',
@@ -18,7 +20,16 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
+      title: 'Welcome To the VACO React/Redux Starter',
+      filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
+      chunks: ['index'],
+    }),
+    new HtmlWebpackPlugin({
+      title: 'About Us',
+      filename: 'about.html',
+      template: path.join(__dirname, 'public', 'index.html'),
+      chunks: ['about'],
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

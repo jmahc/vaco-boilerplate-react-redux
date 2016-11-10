@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import { Layout, Panel } from 'vaco-components-library';
 
-export default () => (
+const About = () => (
   <div>
     <Layout>
       <Panel>
@@ -12,3 +12,5 @@ export default () => (
     </Layout>
   </div>
 );
+
+export default About;

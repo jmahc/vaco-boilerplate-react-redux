@@ -4,7 +4,7 @@
     <!-- The first thing in any HTML file should be the charset -->
     <meta charset="utf-8">
     <!-- Creator Information -->
-    <title>V. Alexander - ReactJS with Redux Boilerplate</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
     <meta name="author" content="V. Alexander development team">
     <meta name="description" content="A repository to provide a quick and easy way to start developing applications.">
     <!-- Make the page mobile compatible -->
@@ -28,6 +28,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
   </head>
   <body>
+    <!-- <h1><%= htmlWebpackPlugin.options.title %></h1> -->
     <!-- The app hooks into this div, `root` -->
     <div id="root"></div>
     <!--

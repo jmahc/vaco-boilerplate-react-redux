@@ -24,6 +24,7 @@ test-results.html
 logs
 *.log
 npm-debug.log
+stats.json
 
 # sass
 .sass-cache
