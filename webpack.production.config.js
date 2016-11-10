@@ -9,7 +9,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     index: path.join(__dirname, 'src', 'pages', 'index.jsx'),
-    about: path.join(__dirname, 'src', 'pages', 'about.jsx'),
+    team: path.join(__dirname, 'src', 'pages', 'team.jsx'),
   },
   output: {
     path: path.join(__dirname, '/tmp/public'),
@@ -70,20 +70,17 @@ module.exports = {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    // new HtmlWebpackPlugin({
-    //   template: path.join(__dirname, 'public', 'index.html'),
-    // }),
     new HtmlWebpackPlugin({
-      title: 'Welcome To the VACO React/Redux Starter',
+      title: 'INDEX.HTML',
       filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
       chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
-      title: 'About Us',
-      filename: 'about.html',
+      title: 'TEAM HTML',
+      filename: 'team.html',
       template: path.join(__dirname, 'public', 'index.html'),
-      chunks: ['about'],
+      chunks: ['team'],
     }),
     new PurifyCSSPlugin({
       basePath: process.cwd(),

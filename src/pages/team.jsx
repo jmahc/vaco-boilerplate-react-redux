@@ -5,8 +5,8 @@ import { IndexRoute, Route, hashHistory } from 'react-router';
 import {
   App,
   Root,
-  Home,
   About,
+  Home,
   Team,
 } from '../containers';
 import createStore from '../redux/create';
@@ -15,9 +15,9 @@ const history = hashHistory;
 
 const routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={Home} />
+    <IndexRoute component={Team} />
+    <Route path="/home" component={Home} />
     <Route path="/about" component={About} />
-    <Route path="/team" component={Team} />
   </Route>
 );
 

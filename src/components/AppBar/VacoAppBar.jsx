@@ -9,7 +9,7 @@ const VacoAppBar = ({ children, ...other }) => (
     theme={theme}
   >
     <Logo />
-    <p>V. Alexander - ReactJS + Redux</p>
+    <a href="./">V. Alexander - ReactJS + Redux</a>
     {children}
   </AppBar>
 );

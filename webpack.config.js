@@ -10,26 +10,26 @@ module.exports = {
   devtool: '#source-map',
   entry: {
     index: utility.entryPoint('index'),
-    about: utility.entryPoint('about'),
+    team: utility.entryPoint('team'),
   },
   output: {
     path: __dirname,
     publicPath: '/',
-    filename: 'bundle.js',
+    filename: 'bundle-[name].js',
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Welcome To the VACO React/Redux Starter',
+      title: 'INDEX.HTML',
       filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
       chunks: ['index'],
     }),
     new HtmlWebpackPlugin({
-      title: 'About Us',
-      filename: 'about.html',
+      title: 'TEAM.HTML',
+      filename: 'team.html',
       template: path.join(__dirname, 'public', 'index.html'),
-      chunks: ['about'],
+      chunks: ['team'],
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

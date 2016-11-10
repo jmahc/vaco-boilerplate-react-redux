@@ -20,8 +20,13 @@ const Home = ({
     <br />
     <Link to="/about">About</Link>
     <br />
+    <Link to="/team">team</Link>
     <br />
-    <Link to="/team">Team</Link>
+    <br />
+    <a href="./team.html">TeamHTML</a>
+    <br />
+    <br />
+    <a href="./index.html">IndexHTML</a>
   </div>
 );
 

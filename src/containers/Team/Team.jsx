@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import { Button, Card, CardActions, CardMedia, CardText, CardTitle, Layout, Panel } from 'vaco-components-library';
 import cat from 'assets/img/cat.jpg';
 import catvatar from 'assets/img/catvatar.jpg';
@@ -10,8 +11,12 @@ const Team = () => (
     <Layout>
       <Panel>
         <h1>Team Page!</h1>
+        <Link to="/home">TeamHTML home page.</Link>
         <br />
-        <a href="/about.html">Back to AboutHTML homepage.</a>
+        <Link to="/about">TeamHTML about page.</Link>
+        <br />
+        <br />
+        <hr />
         <br />
         <br />
         <a href="/">Back to IndexHTML homepage.</a>
