@@ -1,4 +1,4 @@
-# vaco-spa-boilerplate
+# vaco-boilerplate-react-redux
 V. Alexander's boilerplate project for creating single-page applications utilizing ReactJS, Redux, Webpack with hot module reloading, and Mocha/Chai/Enzyme for testing.
 
 ---
