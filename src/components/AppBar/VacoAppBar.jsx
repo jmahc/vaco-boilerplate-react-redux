@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import AppBar from 'vaco-components-library/lib/app_bar';
+import { Link } from 'react-router';
+import { AppBar, Navigation } from 'vaco-components-library';
 import Logo from 'components/Logo/Logo';
 import theme from './VacoAppBar.scss';
 
@@ -9,8 +10,9 @@ const VacoAppBar = ({ children, ...other }) => (
     theme={theme}
   >
     <Logo />
-    <a href="./">V. Alexander - ReactJS + Redux</a>
+    <Link to="/">Jordan McArdle`s Sample Application</Link>
     {children}
+    <Navigation />
   </AppBar>
 );
 

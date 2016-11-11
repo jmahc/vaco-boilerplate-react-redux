@@ -10,7 +10,6 @@ module.exports = {
   devtool: '#source-map',
   entry: {
     index: utility.entryPoint('index'),
-    team: utility.entryPoint('team'),
   },
   output: {
     path: __dirname,
@@ -20,16 +19,10 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'INDEX.HTML',
+      title: 'Jordan McArdle\'s Sample React + Redux Application',
       filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
       chunks: ['index'],
-    }),
-    new HtmlWebpackPlugin({
-      title: 'TEAM.HTML',
-      filename: 'team.html',
-      template: path.join(__dirname, 'public', 'index.html'),
-      chunks: ['team'],
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
