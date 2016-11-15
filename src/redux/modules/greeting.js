@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Actions
-const RECEIVE_GREETING = 'react-production-starter/greeting/RECEIVE-GREETING';
+const RECEIVE_GREETING = 'sample/greeting/RECEIVE-GREETING';
 
 const initialState = {
   message: '',

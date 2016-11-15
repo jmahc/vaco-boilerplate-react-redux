@@ -1,5 +1,5 @@
 // Actions
-const INCREMENT = 'react-production-starter/counter/INCREMENT';
+const INCREMENT = 'sample/counter/INCREMENT';
 
 const initialState = {
   count: 0,

@@ -1,10 +1,19 @@
 .appBar {
   background-color: $color-primary;
+  color: $color-white;
 
-  > svg {
-    width: 3.4rem;
-    height: 3.4rem;
-    margin-right: 1rem;
-    fill: $color-white;
+  a {
+    > span {
+      vertical-align: text-bottom;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    &:hover {
+      text-decoration: underline;
+    }
+    &:not(:last-child) {
+      margin-right: 2.5rem;
+    }
   }
 }

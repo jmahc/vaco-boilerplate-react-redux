@@ -1,8 +1,9 @@
-const autoprefixer = require('autoprefixer');
+require('react-hot-loader/patch');
+const chalk = require('chalk');
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const utility = require('./util');
 
 module.exports = {
@@ -24,8 +25,17 @@ module.exports = {
       template: path.join(__dirname, 'public', 'index.html'),
       chunks: ['index'],
     }),
+    new ProgressBarPlugin({
+      format: `  build [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
+      clear: false,
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
+
+    // activates HMR
     new webpack.HotModuleReplacementPlugin(),
+
+    // prints more readable module names in the browser console on HMR updates
+    new webpack.NamedModulesPlugin(),
     new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
@@ -36,7 +46,7 @@ module.exports = {
     loaders: [
       {
         test: /\.jsx?$/,
-        loaders: ['react-hot', 'babel'],
+        loaders: ['babel'],
         include: path.join(__dirname, 'src'),
       }, {
         test: /\.json$/,
@@ -58,9 +68,7 @@ module.exports = {
       },
     ],
   },
-  postcss: {
-    plugins: [autoprefixer({ browsers: ['last 2 versions'] })],
-  },
+
   sassLoader: {
     data: '@import "theme/_config.scss";',
     includePaths: [path.resolve(__dirname, './src')],

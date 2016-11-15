@@ -1,10 +1,12 @@
-{ "extends": "eslint-config-airbnb",
+{
+  "extends": "eslint-config-airbnb",
   "env": {
     "browser": true,
     "node": true,
     "mocha": true
   },
   "rules": {
+    "jsx-a11y/anchor-has-content": 0,
     "react/no-multi-comp": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": 0,
@@ -19,19 +21,13 @@
     "indent": [2, 2, {"SwitchCase": 1}],
     "no-console": 0,
     "no-alert": 0,
-    "no-underscore-dangle": 0,
+    "no-underscore-dangle": 0
   },
-  "plugins": [
-    "react",
-    "import"
-  ],
+  "plugins": ["react", "import"],
   "settings": {
     "import/parser": "babel-eslint",
     "import/resolve": {
-      "moduleDirectory": [
-        "node_modules",
-        "src"
-      ]
+      "moduleDirectory": ["node_modules", "src"]
     }
   },
   "globals": {

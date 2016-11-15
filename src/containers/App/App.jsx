@@ -1,5 +1,4 @@
 import React, { PropTypes } from 'react';
-// import 'normalize.css';
 import { VacoAppBar } from 'components';
 
 const App = ({ children }) => (

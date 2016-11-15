@@ -8,11 +8,14 @@
     "transform-runtime",
     "add-module-exports",
     "transform-decorators-legacy",
-    "transform-react-display-name"
+    "transform-react-display-name",
+    "transform-class-properties",
+    "transform-react-jsx-source"
   ],
   "env": {
     "development": {
       "plugins": [
+        "react-hot-loader/babel",
         "typecheck",
         [
           "react-transform", {

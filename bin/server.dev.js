@@ -5,6 +5,7 @@ const open = require('open');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
+
 // Local files
 const api = require('../api');
 const config = require('../webpack.config');
@@ -30,6 +31,9 @@ app.use(webpackDevMiddleware(compiler, {
   publicPath: '/',
   noInfo: true,
   historyApiFallback: true,
+  stats: {
+    colors: true,
+  },
 }));
 
 app.use(webpackHotMiddleware(compiler, {

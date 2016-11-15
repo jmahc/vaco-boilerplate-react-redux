@@ -7,11 +7,7 @@ const svgPath = {
 };
 
 const Logo = ({ ...other }) => (
-  <svg
-    viewBox={svgPath.viewBox}
-    {...other}
-    className="header-logo"
-  >
+  <svg className="header-logo" viewBox={svgPath.viewBox} {...other}>
     <g>
       <path d={svgPath.one} />
       <path d={svgPath.two} />

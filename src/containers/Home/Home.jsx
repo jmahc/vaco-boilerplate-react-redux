@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react';
-import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { incrementAsync } from 'redux/modules/counter';
 import { requestGreeting } from 'redux/modules/greeting';
 import { Button } from 'vaco-components-library';
 
 const Home = ({
-  onIncrementClick,
-  onGreetClick,
   count,
   greeting,
+  onGreetClick,
+  onIncrementClick,
 }) => (
   <div className="home">
     <h1>{count}</h1>
@@ -20,16 +19,16 @@ const Home = ({
 );
 
 Home.propTypes = {
-  onIncrementClick: PropTypes.func.isRequired,
-  onGreetClick: PropTypes.func.isRequired,
   count: PropTypes.number,
   greeting: PropTypes.string,
+  onGreetClick: PropTypes.func.isRequired,
+  onIncrementClick: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
   count: state.counter.count,
-  routing: state.routing,
   greeting: state.greeting.text,
+  routing: state.routing,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -45,3 +44,9 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(Home);
+
+if (__DEVELOPMENT__ && module.hot) {
+  // Support hot reloading of components
+  console.log('Trying to hot reload HOME....');
+  module.hot.accept('./Home.jsx');
+}
