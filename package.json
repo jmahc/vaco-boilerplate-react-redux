@@ -11,7 +11,7 @@
     "start": "node bin/server.dev.js",
     "dev": "node bin/server.dev.js",
     "dev:api": "node bin/server.js",
-    "dev:mac": "rimraf ./*/**/.DS_STORE",
+    "dev:clean-mac": "rimraf ./*/**/.DS_STORE",
     "lint": "eslint src api",
     "build": "scripts/build.sh",
     "test": "mocha \"src/**/*.test.js\" --require babel-register --require test/setup.js",
@@ -99,7 +99,7 @@
     "sass-loader": "4.0.2",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
-    "vaco-components-library": "1.0.0",
+    "vaco-components-library": "1.0.1",
     "webpack": "1.13.2",
     "webpack-dev-middleware": "1.8.4",
     "webpack-hot-middleware": "2.13.0"

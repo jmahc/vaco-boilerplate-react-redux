@@ -1,3 +1,4 @@
+import 'vaco-components-library/lib/commons.scss';
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { incrementAsync } from 'redux/modules/counter';
@@ -10,11 +11,21 @@ const Home = ({
   onGreetClick,
   onIncrementClick,
 }) => (
-  <div className="home">
-    <h1>{count}</h1>
-    <h4>{greeting}</h4>
-    <Button raised primary onClick={onIncrementClick}>increment</Button>
-    <Button raised primary onClick={onGreetClick}>greet</Button>
+  <div>
+    <div className="home">
+      <h1>{count}</h1>
+      <h4>{greeting}</h4>
+      <Button raised primary onClick={onIncrementClick}>increment</Button>
+      <Button raised primary onClick={onGreetClick}>greet</Button>
+    </div>
+    <div className="mdl-grid">
+      <div className="mdl-cell mdl-cell--6-col">
+        <h1>Customer Maintenance Dealy</h1>
+      </div>
+      <div className="mdl-cell mdl-cell--6-col">
+        <h1>Right Pane</h1>
+      </div>
+    </div>
   </div>
 );
 

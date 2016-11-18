@@ -8,22 +8,17 @@ import { IndexRoute, Route, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { AppContainer as HotLoaderWrapper } from 'react-hot-loader';
 // --- Local files.
-import {
-  App,
-  Customers,
-  Home,
-} from '../containers';
+import { App as Layout, Customers, Home } from '../containers';
 import createStore from '../redux/create';
 
 // Defaults
 const store = createStore(hashHistory);
 const history = syncHistoryWithStore(hashHistory, store);
 const rootElement = document.getElementById('root');
-let counter = 0;
 
 // Custom routes
 const routes = (
-  <Route path="/" component={App}>
+  <Route path="/" component={Layout}>
     <IndexRoute component={Home} />
     <Route path="/customers" component={Customers} />
   </Route>
@@ -35,7 +30,6 @@ const renderApp = () => {
   ReactDOM.render(
     <HotLoaderWrapper>
       <Root
-        counter={counter}
         history={history}
         routes={routes}
         store={store}
@@ -46,16 +40,6 @@ const renderApp = () => {
 };
 
 domready(() => {
-  if (counter === 0) {
-    // Only want to run this on instantiation
-    injectTapEventPlugin();
-  }
+  injectTapEventPlugin(); // Only want to run this on instantiation
   renderApp();
 });
-
-
-if (__DEVELOPMENT__ && module.hot) {
-  // Support hot reloading of components
-  counter++; // eslint-disable-line no-plusplus
-  module.hot.accept();
-}

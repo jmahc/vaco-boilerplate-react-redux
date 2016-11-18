@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { Field, formValueSelector, reduxForm } from 'redux-form';
 import {
   Button,
   Input,
@@ -7,7 +8,7 @@ import {
 
 const validate = (values) => {
   const errors = {};
-  const requiredFields = ['firstName', 'lastName', 'email'];
+  const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
   requiredFields.forEach((field) => {
     if (!values[field]) {
       errors[field] = 'Required';
@@ -15,6 +16,10 @@ const validate = (values) => {
   });
   if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
+  }
+  if (values.phones && values.phones.length > 3) {
+    errors.phones = [];
+    errors.phones._error = 'Too many phone fields!';
   }
   return errors;
 };
@@ -24,10 +29,27 @@ const renderInput = ({ input, label, meta: { touched, error }, isRequired, ...cu
     label={label}
     required={isRequired}
     error={touched && error ? `This field, ${label}, is required.` : null}
-    {...input}
     {...custom}
   />
 );
+
+// const renderPhones = ({ fields }) => (
+//   <ul>
+//     <li>
+//       <Button onClick={() => fields.push()}>Add Phone</Button>
+//     </li>
+//   </ul>
+//   <Input
+//     label={label}
+//     required={isRequired}
+//     error={touched && error ? `This field, ${label}, is required.` : null}
+//     {...custom}
+//   />
+// );
+
+// renderInput.propTypes = {
+
+// }
 
 // const renderCheckbox = ({ input, label }) => (
 //   <Checkbox label={label}
@@ -53,7 +75,7 @@ const renderInput = ({ input, label, meta: { touched, error }, isRequired, ...cu
 //   </SelectField>
 // );
 
-const VacoForm = ({ ...props }) => {
+let VacoForm = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -65,6 +87,9 @@ const VacoForm = ({ ...props }) => {
       </div>
       <div>
         <Field name="email" component={renderInput} label="Email" />
+      </div>
+      <div>
+        <Field name="phone" component={renderInput} label="Phone" />
       </div>
       <div>
         <Button
@@ -98,7 +123,31 @@ VacoForm.propTypes = {
   submitting: PropTypes.bool,
 };
 
-export default reduxForm({
-  form: 'Customers',  // a unique identifier for this form
+// The order of the decoration does not matter.
+
+// Decorate with redux-form
+VacoForm = reduxForm({
+  form: 'CustomersForm',  // A unique identifier for this form / name for the form and key to
+                          // where your form's state will be mounted.
+  fields: ['firstName', 'lastName', 'email', 'phone'],
   validate,
 })(VacoForm);
+
+// Decorate with connect to read form values
+const selector = formValueSelector('CustomersForm'); // same as form name
+VacoForm = connect(
+  (state) => {
+    // can select values individually
+    // --- const hasEmailValue = selector(state, 'hasEmail')
+    // --- const favoriteColorValue = selector(state, 'favoriteColor')
+    // or together as a group
+    const { firstName, lastName, email, phone } = selector(state, 'firstName', 'lastName', 'email', 'phone');
+    return {
+      fullName: `${firstName || ''} ${lastName || ''}`,
+      email: `${email}`,
+      phone: `${phone}`,
+    };
+  }
+)(VacoForm);
+
+export default VacoForm;

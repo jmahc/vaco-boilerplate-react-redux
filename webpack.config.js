@@ -34,9 +34,14 @@ module.exports = {
     // activates HMR
     new webpack.HotModuleReplacementPlugin(),
 
-    // prints more readable module names in the browser console on HMR updates
+    // Enables Hot Module Replacement.
+    //  -- (This requires records data if not in dev-server mode, recordsPath)
+    // Generates Hot Update Chunks of each chunk in the records.
+    //  -- It also enables the API and makes __webpack_hash__ available in the bundle.
     new webpack.NamedModulesPlugin(),
     new webpack.NoErrorsPlugin(),
+
+    // allows you to create global constants which can be configured at compile time
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
@@ -44,25 +49,38 @@ module.exports = {
   ],
   module: {
     loaders: [
-      {
-        test: /\.jsx?$/,
+      { test: /\.jsx?$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'src'),
-      }, {
+      },
+      {
         test: /\.json$/,
         loader: 'json',
-      }, {
+      },
+      {
         test: /\.css/,
         loaders: ['style', 'css'],
-      }, {
-        test: /\.scss/,
+      },
+      // Imported SASS files that do NOT need to be modularized.
+      {
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'postcss', 'sass'],
+        exclude: [/node_modules/],
+        include: [path.join(__dirname, 'src/styles')],
+      },
+      // This imports and 'css'-modularizes all code (with unique hashed names).
+      // `styles` directory is ignored because those classnames must be specific & not hashed.
+      {
+        test: /\.scss$/,
         loaders: [
           'style',
           'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]',
           'postcss',
           'sass?outputStyle=expanded&sourceMap',
         ],
-      }, {
+        exclude: [path.join(__dirname, 'src/styles')],
+      },
+      {
         test: /\.(jpe?g|png|gif|svg)$/i,
         loader: 'file',
       },
