@@ -59,5 +59,5 @@ export default connect(
 if (__DEVELOPMENT__ && module.hot) {
   // Support hot reloading of components
   console.log('Trying to hot reload HOME....');
-  module.hot.accept('./Home.jsx');
+  module.hot.accept('./');
 }

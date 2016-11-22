@@ -6,6 +6,10 @@ import DevTools from '../DevTools/DevTools';
 const Root = ({ ...props }) => (
   <Provider store={props.store}>
     <Router history={props.history} routes={props.routes}>
+      <Route path="/" component={Layout}>
+        <IndexRoute component={Home} />
+        <Route path="/customers" component={Customers} />
+      </Route>
       {__DEVELOPMENT__ ? <DevTools /> : null}
     </Router>
   </Provider>

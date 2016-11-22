@@ -1,30 +1,24 @@
 // --- Dependencies
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 // import domready from 'domready';
-import Immutable from 'immutable';
+// import Immutable from 'immutable';
+import { Provider } from 'react-redux';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {
-  IndexRoute,
-  Route,
-  hashHistory,
-} from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-// import { AppContainer as HotLoaderWrapper } from 'react-hot-loader';
-// --- Local files.
+// Local files...
 import {
-  App as Layout,
+  Layout,
   Customers,
   Home,
+  DevTools,
 } from '../containers';
-import createStore from '../redux/create';
+// import getRoutes from '../routes';
+import store from '../redux/store/store';
 
-// Defaults
-const state = Immutable.fromJS({});
-const store = createStore(hashHistory, state);
+// const pageName = 'index';
 const history = syncHistoryWithStore(hashHistory, store);
-
-// Custom routes
 const routes = (
   <Route path="/" component={Layout}>
     <IndexRoute component={Home} />
@@ -32,19 +26,18 @@ const routes = (
   </Route>
 );
 
-const renderApp = () => {
-  const Root = require('../containers/Root/Root'); // eslint-disable-line global-require
+// Needed for onTouchTap
+// Check this repo:
+// https://github.com/zilverline/react-tap-event-plugin
+injectTapEventPlugin();
 
-  ReactDOM.render(
-    <Root
-      store={store}
-      history={history}
-      routes={routes}
-    />,
-    document.getElementById('root')
-  );
-};
+const documentRoot = document.getElementById('root');
 
-
-injectTapEventPlugin(); // Only want to run this on instantiation
-renderApp();
+render(
+  <Provider store={store}>
+    <Router history={history} routes={routes}>
+      {__DEVELOPMENT__ ? <DevTools /> : null}
+    </Router>
+  </Provider>,
+  documentRoot
+);
