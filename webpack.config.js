@@ -1,4 +1,3 @@
-require('react-hot-loader/patch');
 const chalk = require('chalk');
 const path = require('path');
 const webpack = require('webpack');
@@ -49,9 +48,11 @@ module.exports = {
   ],
   module: {
     loaders: [
-      { test: /\.jsx?$/,
+      {
+        test: /\.jsx?$/,
         loaders: ['babel'],
         include: path.join(__dirname, 'src'),
+        exclude: [/node_modules/],
       },
       {
         test: /\.json$/,
@@ -68,8 +69,10 @@ module.exports = {
         exclude: [/node_modules/],
         include: [path.join(__dirname, 'src/styles')],
       },
-      // This imports and 'css'-modularizes all code (with unique hashed names).
-      // `styles` directory is ignored because those classnames must be specific & not hashed.
+      // This imports and "css-modularizes" all code w/ unique/hashed classnames
+      // in order to prevent library clashes (namespaces CSS essentially ;] ).
+      // Note:
+      //  - `styles` directory is ignored b/c these classnames are specific to this app
       {
         test: /\.scss$/,
         loaders: [

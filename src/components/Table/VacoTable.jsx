@@ -1,19 +1,10 @@
 import React, { Component } from 'react';
 import { formValueSelector } from 'redux-form';
-import { Table } from 'vaco-components-library';
-
-const FormModel = {
-  firstName: {type: String},
-  lastName: {type: String},
-  email: {type: String},
-};
+import {
+  Table
+} from 'vaco-components-library';
 
 class VacoTable extends Component {
-  state = {
-    selected: [],
-    source: [],
-  };
-
   handleChange = (row, key, value) => {
     const source = this.state.source;
     source[row][key] = value;
@@ -25,17 +16,21 @@ class VacoTable extends Component {
   };
 
   render () {
+    const data = JSON.stringify(this.props.savedForm || 'no saved data');
     return (
-      <Table
-        model={FormModel}
-        onChange={this.handleChange}
-        onSelect={this.handleSelect}
-        editable={false}
-        selectable
-        multiSelectable
-        selected={this.state.selected}
-        source={this.state.source}
-      />
+      <div>
+        <Table
+          model={FormModel}
+          onChange={this.handleChange}
+          onSelect={this.handleSelect}
+          editable={false}
+          selectable
+          multiSelectable
+          selected={this.state.selected}
+          source={this.state.source}
+        />
+        <div>Last submitted data: {data}</div>
+      </div>
     );
   }
 }

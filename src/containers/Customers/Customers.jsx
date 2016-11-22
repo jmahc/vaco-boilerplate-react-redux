@@ -1,6 +1,12 @@
-import React, { Component } from 'react';
-import { Layout, Panel } from 'vaco-components-library';
-import { VacoForm, VacoTable } from 'components';
+import React, { Component, PropTypes } from 'react';
+import {
+  Layout,
+  Panel,
+} from 'vaco-components-library';
+import {
+  VacoForm,
+  VacoTable,
+} from 'components';
 
 const showResults = (values) => {
   new Promise((resolve) => { // eslint-disable-line no-new
@@ -11,29 +17,28 @@ const showResults = (values) => {
   });
 };
 
-//    window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
-//    this.props.dispatch(initialize('CustomersForm', {}));
 class Customers extends Component {
-  constructor(props) {
-    super(props);
-  }
+  static propTypes = {
+    fields: PropTypes.object.isRequired,
+    handleSubmit: PropTypes.func.isRequired
+  };
   render() {
-    return (
-      <div className="customers">
+    const { fields: { firstName }, handleSubmit } = this.props;
+    return (<div className="customers">
         <h1>
           Customerss
         </h1>
-        <Layout>
-          <Panel>
-            <VacoForm onSubmit={showResults} />
+        <Layout className="mdl-grid">
+          <Panel className="mdl-cell mdl-cell--6-col">
+            <VacoForm onSubmit={handleSubmit} />
           </Panel>
-          <Panel>
+          <Panel className="mdl-cell mdl-cell--6-col">
             <VacoTable form="CustomersForm" />
           </Panel>
         </Layout>
       </div>
     );
   }
-}
+};
 
 export default Customers;

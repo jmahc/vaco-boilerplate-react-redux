@@ -26,7 +26,9 @@ const dividerCurly = chalk.bgRed(`\n${Array(76).join('~')}`);
 const tableIntroduction = new Table({
   colAligns: [],
   colWidths: [],
-  head: [`Major ${keymoji}  coming in for you:\n\nYou smaht. You loyal. Bless up. ${praymoji}`],
+  head: [
+    `Major ${keymoji}  coming in for you:\n\nYou smaht. You loyal. Bless up. ${praymoji}`,
+  ],
   style: {
     'padding-left': 1,
     'padding-right': 1,

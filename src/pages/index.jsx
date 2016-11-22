@@ -1,20 +1,28 @@
 // --- Dependencies
-import 'vaco-components-library/lib/commons.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import domready from 'domready';
+// import domready from 'domready';
+import Immutable from 'immutable';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import { IndexRoute, Route, hashHistory } from 'react-router';
+import {
+  IndexRoute,
+  Route,
+  hashHistory,
+} from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { AppContainer as HotLoaderWrapper } from 'react-hot-loader';
+// import { AppContainer as HotLoaderWrapper } from 'react-hot-loader';
 // --- Local files.
-import { App as Layout, Customers, Home } from '../containers';
+import {
+  App as Layout,
+  Customers,
+  Home,
+} from '../containers';
 import createStore from '../redux/create';
 
 // Defaults
-const store = createStore(hashHistory);
+const state = Immutable.fromJS({});
+const store = createStore(hashHistory, state);
 const history = syncHistoryWithStore(hashHistory, store);
-const rootElement = document.getElementById('root');
 
 // Custom routes
 const routes = (
@@ -28,18 +36,15 @@ const renderApp = () => {
   const Root = require('../containers/Root/Root'); // eslint-disable-line global-require
 
   ReactDOM.render(
-    <HotLoaderWrapper>
-      <Root
-        history={history}
-        routes={routes}
-        store={store}
-      />
-    </HotLoaderWrapper>,
-    rootElement
+    <Root
+      store={store}
+      history={history}
+      routes={routes}
+    />,
+    document.getElementById('root')
   );
 };
 
-domready(() => {
-  injectTapEventPlugin(); // Only want to run this on instantiation
-  renderApp();
-});
+
+injectTapEventPlugin(); // Only want to run this on instantiation
+renderApp();

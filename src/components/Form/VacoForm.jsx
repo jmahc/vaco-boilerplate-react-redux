@@ -1,6 +1,11 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { Field, formValueSelector, reduxForm } from 'redux-form';
+// import { connect } from 'react-redux';
+// import { Field, formValueSelector, reduxForm } from 'redux-form';
+import {
+  Field,
+  // formValueSelector,
+  reduxForm,
+} from 'redux-form/immutable';
 import {
   Button,
   Input,
@@ -8,30 +13,51 @@ import {
 
 const validate = (values) => {
   const errors = {};
-  const requiredFields = ['firstName', 'lastName', 'email', 'phone'];
+  const requiredFields = [
+    'firstName',
+    // 'lastName',
+    // 'email',
+    // 'phone',
+  ];
   requiredFields.forEach((field) => {
     if (!values[field]) {
       errors[field] = 'Required';
     }
   });
-  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-    errors.email = 'Invalid email address';
-  }
-  if (values.phones && values.phones.length > 3) {
-    errors.phones = [];
-    errors.phones._error = 'Too many phone fields!';
-  }
+  // if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  //   errors.email = 'Invalid email address';
+  // }
+  // if (values.phones && values.phones.length > 3) {
+  //   errors.phones = [];
+  //   errors.phones._error = 'Too many phone fields!';
+  // }
   return errors;
 };
 
-const renderInput = ({ input, label, meta: { touched, error }, isRequired, ...custom }) => (
+/* eslint-disable react/prop-types */
+const renderInput = ({
+  input,
+  label,
+  meta: { touched, error },
+  isRequired,
+  ...custom
+}) => (
   <Input
     label={label}
     required={isRequired}
     error={touched && error ? `This field, ${label}, is required.` : null}
+    {...input}
     {...custom}
   />
 );
+/* eslint-enable react/prop-types */
+
+// renderInput.propTypes = {
+//   input: PropTypes.any,
+//   isRequired: PropTypes.bool,
+//   label: PropTypes.any,
+//   meta: PropTypes.any,
+// };
 
 // const renderPhones = ({ fields }) => (
 //   <ul>
@@ -75,14 +101,14 @@ const renderInput = ({ input, label, meta: { touched, error }, isRequired, ...cu
 //   </SelectField>
 // );
 
-let VacoForm = (props) => {
+const VacoForm = (props) => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <Field name="firstName" component={renderInput} label="First Name" />
       </div>
-      <div>
+      {/* <div>
         <Field name="lastName" component={renderInput} label="Last Name" />
       </div>
       <div>
@@ -90,7 +116,7 @@ let VacoForm = (props) => {
       </div>
       <div>
         <Field name="phone" component={renderInput} label="Phone" />
-      </div>
+      </div> */}
       <div>
         <Button
           primary
@@ -126,28 +152,42 @@ VacoForm.propTypes = {
 // The order of the decoration does not matter.
 
 // Decorate with redux-form
-VacoForm = reduxForm({
+export default reduxForm({
   form: 'CustomersForm',  // A unique identifier for this form / name for the form and key to
                           // where your form's state will be mounted.
-  fields: ['firstName', 'lastName', 'email', 'phone'],
+  fields: [
+    'firstName',
+    // 'lastName',
+    // 'email',
+    // 'phone',
+  ],
   validate,
 })(VacoForm);
 
-// Decorate with connect to read form values
-const selector = formValueSelector('CustomersForm'); // same as form name
-VacoForm = connect(
-  (state) => {
-    // can select values individually
-    // --- const hasEmailValue = selector(state, 'hasEmail')
-    // --- const favoriteColorValue = selector(state, 'favoriteColor')
-    // or together as a group
-    const { firstName, lastName, email, phone } = selector(state, 'firstName', 'lastName', 'email', 'phone');
-    return {
-      fullName: `${firstName || ''} ${lastName || ''}`,
-      email: `${email}`,
-      phone: `${phone}`,
-    };
-  }
-)(VacoForm);
+// // Decorate with connect to read form values
+// const selector = formValueSelector('CustomersForm'); // same as form name
+// console.log('Selector is: ');
+// console.info(selector);
+// VacoForm = connect(
+//   (state) => {
+//     // can select values individually
+//     // --- const hasEmailValue = selector(state, 'hasEmail')
+//     // --- const favoriteColorValue = selector(state, 'favoriteColor')
+//     // or together as a group
+//     const { firstName, lastName, email, phone } = selector(state, 'firstName',
+//     'lastName', 'email', 'phone');
+//     console.log('Selector has the following values:     ----->');
+//     console.info(firstName);
+//     console.info(lastName);
+//     console.info(email);
+//     console.info(phone);
+//
+//     return {
+//       fullName: `${firstName || ''} ${lastName || ''}`,
+//       email: `${email}`,
+//       phone: `${phone}`,
+//     };
+//   }
+// )(VacoForm);
 
-export default VacoForm;
+// export default VacoForm;

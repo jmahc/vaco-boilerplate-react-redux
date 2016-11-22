@@ -10,6 +10,10 @@ module.exports = function entryPointResolver(page) {
 
     'webpack-hot-middleware/client?path=/__webpack_hmr',
 
+    'vaco-components-library/lib/commons.scss', // include commons SASS on each page
+    // NOTE:
+    // removed from `pages/index.jsx` => `import 'vaco-components-library...'`;
+
     './src/styles/grid/all.scss', // include MDL's grid on each page (PurifyCSS removes if unused).
 
     `./src/pages/${page}.jsx`,
