@@ -4,9 +4,9 @@ import {
   Panel,
 } from 'vaco-components-library';
 import {
-  VacoForm,
-  VacoTable,
-} from 'components';
+  VacoFormContainer,
+  VacoFormDataContainer,
+} from 'containers';
 
 const dataArray = [];
 
