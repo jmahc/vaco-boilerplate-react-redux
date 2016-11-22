@@ -1,6 +1,10 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Field, formValueSelector, reduxForm } from 'redux-form';
+import {
+  Field,
+  formValueSelector,
+  reduxForm,
+} from 'redux-form';
 // import {
 //   Field,
 //   // formValueSelector,
@@ -91,7 +95,7 @@ let VacoForm = ({ handleSubmit, pristine, reset, submitting, fields: { firstName
 );
 
 VacoForm.propTypes = {
-  fields: PropTypes.object.isRequired,
+  fields: PropTypes.array.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   pristine: PropTypes.bool,
   reset: PropTypes.func,
@@ -141,4 +145,8 @@ VacoForm = connect(
   }
 )(VacoForm);
 
-// export default VacoForm;
+if (__DEVELOPMENT__ && module.hot) {
+  module.hot.accept('./VacoForm.jsx');
+}
+
+export default VacoForm;

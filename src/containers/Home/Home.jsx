@@ -20,10 +20,10 @@ const Home = ({
     </div>
     <div className="mdl-grid">
       <div className="mdl-cell mdl-cell--6-col">
-        <h1>Customer Maintenance Dealy</h1>
+        <h1>Left Grid Header</h1>
       </div>
       <div className="mdl-cell mdl-cell--6-col">
-        <h1>Right Pane</h1>
+        <h1>Right Grid Header</h1>
       </div>
     </div>
   </div>
@@ -58,6 +58,5 @@ export default connect(
 
 if (__DEVELOPMENT__ && module.hot) {
   // Support hot reloading of components
-  console.log('Trying to hot reload HOME....');
-  module.hot.accept('./');
+  module.hot.accept('./Home.jsx');
 }

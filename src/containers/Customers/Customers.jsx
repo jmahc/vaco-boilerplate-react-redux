@@ -1,7 +1,4 @@
-import React, {
-  Component,
-  PropTypes,
-} from 'react';
+import React from 'react';
 import {
   Layout,
   Panel,
@@ -11,62 +8,42 @@ import {
   VacoTable,
 } from 'components';
 
-const handleFormSubmit = (props) => {
-  console.log('After form submission, props are:');
-  console.info(props);
+const dataArray = [];
+
+const handleSubmit = (values) => {
   new Promise((resolve) => { // eslint-disable-line no-new
     setTimeout(() => {  // simulate server latency
-      window.alert(`You submitted:\n\n${JSON.stringify(this.props.values, null, 2)}`);
+      window.alert(`dataArray is ${dataArray}`);
+      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`);
+      dataArray.push(values);
+      window.alert(`dataArray is now ${dataArray}`);
       resolve();
     }, 500);
   });
 };
 
-class Customers extends Component {
-  // static propTypes = {
-  //   handleFormSubmit: PropTypes.func,
-  // };
-
-  render() {
-    return (
-      <div className="customers">
+const Customers = () => (
+  <div className="customers">
+    <Layout className="mdl-grid">
+      <Panel className="mdl-cell mdl-cell--12-col">
         <h1>
           Customerss
         </h1>
-        <Layout className="mdl-grid">
-          <Panel className="mdl-cell mdl-cell--6-col">
-            <span>
-              VacoForm onSubmit=openBracket handleSubmit closeBracket
-            </span>
-          </Panel>
-          <Panel className="mdl-cell mdl-cell--6-col">
-            <VacoTable form="CustomersForm" />
-          </Panel>
-        </Layout>
-      </div>
-    );
-  }
+      </Panel>
+    </Layout>
+    <Layout className="mdl-grid">
+      <Panel className="mdl-cell mdl-cell--6-col">
+        <VacoForm onSubmit={handleSubmit} />
+      </Panel>
+      <Panel className="mdl-cell mdl-cell--6-col">
+        <VacoTable data={dataArray.length > 0 ? dataArray : []} />
+      </Panel>
+    </Layout>
+  </div>
+);
+
+if (__DEVELOPMENT__ && module.hot) {
+  module.hot.accept('./Customers.jsx');
 }
-
-// const Customers = () => (
-//   <div className="customers">
-//     <h1>
-//       Customerss
-//     </h1>
-//     <Layout className="mdl-grid">
-//       <Panel className="mdl-cell mdl-cell--6-col">
-//         <VacoForm onSubmit={handleSubmit} />
-//       </Panel>
-//       <Panel className="mdl-cell mdl-cell--6-col">
-//         <VacoTable form="CustomersForm" />
-//       </Panel>
-//     </Layout>
-//   </div>
-// );
-
-// Customers.propTypes = {
-//   // fields: PropTypes.object.isRequired,
-//   handleSubmit: PropTypes.func.isRequired,
-// };
 
 export default Customers;

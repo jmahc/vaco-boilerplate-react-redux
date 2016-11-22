@@ -1,5 +1,4 @@
-// Actions
-const INCREMENT = 'sample/counter/INCREMENT';
+import { INCREMENT } from '../constants';
 
 const initialState = {
   count: 0,

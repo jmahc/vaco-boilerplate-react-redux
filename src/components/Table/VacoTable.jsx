@@ -14,11 +14,16 @@ class VacoTable extends Component {
   static absorbToIgnoreEsLint = {};
   state = {
     selected: [],
-    source: [],
+    source: this.props.data || [],
   };
 
   handleChange = (row, key, value) => {
     const source = this.state.source;
+    console.log('handlechange source is.... :     [source, row, key, value]');
+    console.debug(source);
+    console.debug(row);
+    console.debug(key);
+    console.debug(value);
     source[row][key] = value;
     this.setState({source});
   };
@@ -28,28 +33,28 @@ class VacoTable extends Component {
   };
 
   render () {
-    const renderWhatData = this.props.savedForm || 'no saved data source';
-    console.log('Props passed are...');
-    console.info(this.props);
-    const data = JSON.stringify(this.props.savedForm || 'no saved data source');
-    console.log('Data for the table is...');
-    console.info(data);
+    console.log('Data for the table is sourced from form submissions and is...');
+    console.info(this.props.data);
+
     return (
       <div>
         <Table
           model={FormModel}
           onChange={this.handleChange}
           onSelect={this.handleSelect}
-          editable={false}
           selectable
           multiSelectable
           selected={this.state.selected}
-          source={this.state.source}
+          source={this.props.data}
         />
-        <div>Last submitted data: {data}</div>
+        <div>Last submitted data: {this.props.source}</div>
       </div>
     );
   }
+}
+
+if (__DEVELOPMENT__ && module.hot) {
+  module.hot.accept('./VacoTable.jsx');
 }
 
 export default VacoTable;

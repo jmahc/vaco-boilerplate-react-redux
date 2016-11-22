@@ -1,7 +1,5 @@
 import axios from 'axios';
-
-// Actions
-const RECEIVE_GREETING = 'sample/greeting/RECEIVE-GREETING';
+import { RECEIVE_GREETING } from '../constants';
 
 const initialState = {
   message: '',
