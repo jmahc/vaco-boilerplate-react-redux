@@ -1,4 +1,4 @@
-export function validate(formProps) {
+export default function validate(formProps) {
   const errors = {};
 
   if (!formProps.firstName) {

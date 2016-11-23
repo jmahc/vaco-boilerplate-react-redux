@@ -15,15 +15,15 @@ const Home = ({
     <div className="home">
       <h1>{count}</h1>
       <h4>{greeting}</h4>
-      <Button raised primary onClick={onIncrementClick}>increment</Button>
+      <Button raised primary onClick={onIncrementClick}>increment!</Button>
       <Button raised primary onClick={onGreetClick}>greet</Button>
     </div>
     <div className="mdl-grid">
       <div className="mdl-cell mdl-cell--6-col">
-        <h1>Left Grid Header</h1>
+        <h1>Left Grid Header.</h1>
       </div>
       <div className="mdl-cell mdl-cell--6-col">
-        <h1>Right Grid Header</h1>
+        <h1>Right Grid Header.!</h1>
       </div>
     </div>
   </div>
@@ -56,7 +56,9 @@ export default connect(
   mapDispatchToProps
 )(Home);
 
-if (__DEVELOPMENT__ && module.hot) {
-  // Support hot reloading of components
-  module.hot.accept('./Home.jsx');
-}
+// if (__DEVELOPMENT__ && module.hot) {
+//   // Support hot reloading of components
+//   module.hot.accept('./Home.jsx', () => {
+//     console.log('Trying to re-render HOME for [HMR]...');
+//   });
+// }
