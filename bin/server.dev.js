@@ -24,22 +24,25 @@ const urlLocation = `http://localhost:${port}`;
 app.use(require('morgan')('short'));
 
 app.use(webpackDevMiddleware(compiler, {
+  contentBase: root,
+  noInfo: true,
   hot: true,
   inline: true,
-  contentBase: root,
   lazy: false,
   publicPath: '/',
-  noInfo: true,
   historyApiFallback: true,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
   stats: {
     colors: true,
   },
 }));
 
 app.use(webpackHotMiddleware(compiler, {
-  log: console.log,
-  path: '/__webpack_hmr',
-  heartbeat: 10,
+  // log: console.log,
+  // path: '/__webpack_hmr',
+  // heartbeat: 10,
 }));
 
 app.use('/api/', api);

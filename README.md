@@ -3,6 +3,30 @@ V. Alexander's boilerplate project for creating single-page applications utilizi
 
 ---
 
+// ],
+// "env": {
+//   "development": {
+//     "plugins": [
+//       "react-hot-loader/babel",
+//       "typecheck",
+//       [
+//         "react-transform", {
+//           "transforms": [
+//             {
+//               "transform": "react-transform-catch-errors",
+//               "imports": [
+//                 "react",
+//                 "redbox-react"
+//               ]
+//             }
+//           ],
+//           "transformReactLikeFunctionsToClasses": true
+//         }
+//       ]
+//     ]
+//   }
+// }
+
 ## Getting Started
 1. First things first - install your dependencies!
 ```bash

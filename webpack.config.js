@@ -7,7 +7,7 @@ const utility = require('./util');
 
 module.exports = {
   context: path.join(__dirname),
-  devtool: '#source-map',
+  devtool: 'inline-source-map',
   entry: {
     index: utility.entryPoint('index'),
   },
@@ -19,89 +19,212 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Jordan McArdle\'s Sample React + Redux Application',
+      chunks: ['index'],
       filename: 'index.html',
       template: path.join(__dirname, 'public', 'index.html'),
-      chunks: ['index'],
+      // Options - akin to handlebars.  Referenced via:
+      // <%= htmlWebpackPlugin.options.title %>
+      title: 'Jordan McArdle\'s Sample React + Redux Application',
     }),
     new ProgressBarPlugin({
       format: `  build [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
       clear: false,
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
 
-    // activates HMR
+    // Assign the module and chunk ids by occurrence count.
+    // Ids that are used often get lower (shorter) ids.
+    // This make ids predictable, reduces total file size and is recommended.
+    //
+    // new webpack.optimize.OccurenceOrderPlugin(),
+    //
+    // This is on by default.
+    // new webpack.optimize.OccurrenceOrderPlugin(preferEntry)
+    // preferEntry (boolean) give entry chunks higher priority.
+    // This make entry chunks smaller but increases the overall size. (recommended)
+
+
+    // new webpack.optimize.UglifyJsPlugin([options])
+    // Minimize all JavaScript output of chunks. Loaders are switched into minimizing mode.
+    // You can pass an object containing UglifyJS options.
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     warnings: false,
+    //   },
+    //   sourceMap: true,
+    // }),
+
     new webpack.HotModuleReplacementPlugin(),
+    // activates HMR
 
-    // Enables Hot Module Replacement.
-    //  -- (This requires records data if not in dev-server mode, recordsPath)
-    // Generates Hot Update Chunks of each chunk in the records.
-    //  -- It also enables the API and makes __webpack_hash__ available in the bundle.
     new webpack.NamedModulesPlugin(),
+    // prints more readable module names in the browser console on HMR updates
+
     new webpack.NoErrorsPlugin(),
+
+    // This plugin will allow you to reference environment variables through process.env
+    // In your code:
+    //
+    // var env = process.env.NODE_ENV;
+    //
+    new webpack.EnvironmentPlugin([
+      'NODE_ENV',
+    ]),
 
     // allows you to create global constants which can be configured at compile time
     new webpack.DefinePlugin({
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true,
     }),
+
+    new webpack.LoaderOptionsPlugin({
+      options: {
+        sassLoader: {
+          data: '@import "theme/_config.scss";',
+          includePaths: [path.resolve(__dirname, './src')],
+          outputStyle: 'expanded',
+          sourceMap: true,
+        },
+        context: path.join(__dirname),
+      },
+    }),
+
+    // **********
+    // Localization
+    //
+    // TODO
+    //
+    // Create bundles with translations baked in.
+    // Then you can serve the translated bundle to your clients.
+    // new I18nPlugin(translations: Object, fnName = "__": String)
   ],
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.jsx?$/,
-        loaders: ['babel'],
+        use: [
+          'babel-loader',
+        ],
         include: path.join(__dirname, 'src'),
-        exclude: [/node_modules/],
+        exclude: [
+          /node_modules/,
+        ],
       },
       {
         test: /\.json$/,
-        loader: 'json',
-        exclude: [/node_modules/],
+        use: [
+          'json-loader',
+        ],
+        exclude: [
+          /node_modules/,
+        ],
       },
       {
         test: /\.css/,
-        loaders: ['style', 'css'],
-      },
-      // Imported SASS files that do NOT need to be modularized.
-      {
-        test: /\.scss$/,
-        loaders: ['style', 'css', 'postcss', 'sass'],
-        exclude: [/node_modules/],
-        include: [path.join(__dirname, 'src/styles')],
-      },
-      // This imports and "css-modularizes" all code w/ unique/hashed classnames
-      // in order to prevent library clashes (namespaces CSS essentially ;] ).
-      // Note:
-      //  - `styles` directory is ignored b/c these classnames are specific to this app
-      {
-        test: /\.scss$/,
-        loaders: [
-          'style',
-          'css?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]',
-          'postcss',
-          'sass?outputStyle=expanded&sourceMap',
+        use: [
+          'style-loader',
+          'css-loader',
         ],
-        exclude: [path.join(__dirname, 'src/styles')],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+        exclude: [
+          /node_modules/,
+        ],
+        include: [
+          path.join(__dirname, 'src/styles'),
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          // Style
+
+        // 'css-loader?modules&importLoaders=2&sourceMap&localIdentName=[local]___[hash:base64:5]',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 2,
+              localIdentName: '[local]___[hash:base64:5]',
+              modules: true,
+              sourceMap: true,
+            },
+          },
+          // CSS
+
+          'postcss-loader',
+          // PostCSS
+
+          {
+            loader: 'sass-loader',
+            // options: {
+            //   data: '@import "theme/_config.scss";',
+            //   includePaths: [path.resolve(__dirname, './src')],
+            //   outputStyle: 'expanded',
+            //   sourceMap: true,
+            // },
+          },
+          // 'sass-loader',
+          // SASS
+        ],
+        exclude: [
+          path.join(__dirname, 'src/styles'),
+        ],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
-        loader: 'file',
+        use: [
+          'file-loader',
+        ],
       },
     ],
   },
 
-  sassLoader: {
-    data: '@import "theme/_config.scss";',
-    includePaths: [path.resolve(__dirname, './src')],
-  },
+  // Deprecated in webpack 2
+  // sassLoader: {
+  //   data: '@import "theme/_config.scss";',
+  //   includePaths: [path.resolve(__dirname, './src')],
+  // },
 
-  progress: true,
+  // Deprecated in webpack 2
+  // progress: true,
+  recordsPath: path.resolve(__dirname, './recordsPath.json'),
   resolve: {
-    modulesDirectories: [
+    extensions: [
+      // '',
+      '.json',
+      '.js',
+      '.jsx',
+    ],
+    // These extensions are tried when resolving a file
+
+    descriptionFiles: [
+      'package.json',
+    ],
+    // These JSON files are read in directories
+
+    enforceExtension: false,
+    // If false it will also try to use no extension from above
+
+    modules: [
       'src',
       'node_modules',
     ],
-    extensions: ['', '.json', '.js', '.jsx'],
+    // (was split into `root`, `modulesDirectories` and `fallback` in the old options)
+    // In which folders the resolver look for modules
+    // relative paths are looked up in every parent folder (like node_modules)
+    // absolute paths are looked up directly
+    // the order is respected
+
+    moduleExtensions: [
+      '-loaders',
+    ],
+    // These extensions are tried when resolving a module
   },
 };

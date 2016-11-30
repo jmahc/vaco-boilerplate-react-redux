@@ -91,6 +91,18 @@ module.exports = {
         rejected: false,
       },
     }),
+    // **********
+    // Production
+    // **********
+    // TODO
+
+    // Search for equal or similar files and deduplicate them in the output.
+    // This comes with some overhead for the entry chunk, but can reduce file size effectively.
+    //
+    // new webpack.optimize.DedupePlugin()
+    //
+
+    // new CommonsChunkPlugin('commons', 'commons.js'),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
     new ExtractTextPlugin('[name]-[hash].css'),

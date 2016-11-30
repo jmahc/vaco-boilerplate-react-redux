@@ -6,8 +6,8 @@ import {
 
 const FormModel = {
   firstName: {type: String},
-  // lastName: {type: String},
-  // email: {type: String},
+  lastName: {type: String},
+  email: {type: String},
 };
 
 class VacoTable extends Component {

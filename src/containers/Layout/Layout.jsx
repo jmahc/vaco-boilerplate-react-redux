@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 import { VacoAppBar } from 'components';
 
-const App = ({ children }) => (
+const Layout = ({ children }) => (
   <div className="app">
     <VacoAppBar />
     {children}
   </div>
 );
 
-App.propTypes = {
+Layout.propTypes = {
   children: PropTypes.object.isRequired,
 };
 
-export default App;
+export default Layout;

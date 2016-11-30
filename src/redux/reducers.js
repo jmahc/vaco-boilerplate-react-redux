@@ -4,10 +4,10 @@ import { reducer as formReducer } from 'redux-form';
 // import { combineReducers } from 'redux-immutablejs';
 // import { reducer as reduxFormReducer } from 'redux-form/immutable' ;
 import {
-  RECEIVE_EMPLOYEES,
-  REQUEST_EMPLOYEES,
-  START_EMPLOYEE_ADD,
-  ADD_EMPLOYEE,
+  RECEIVE_CUSTOMERS,
+  REQUEST_CUSTOMERS,
+  START_CUSTOMER_ADD,
+  ADD_CUSTOMER,
 } from './constants';
 
 // import forms from './forms';
@@ -15,30 +15,30 @@ import counter from './modules/counter';
 import greeting from './modules/greeting';
 
 function mainReducer(state = {
-  employees: [],
-  loadingEmployees: true,
-  addingEmployee: false,
+  customers: [],
+  loadingCustomers: true,
+  addingCustomer: false,
 }, action) {
   switch (action.type) {
-    case RECEIVE_EMPLOYEES:
+    case RECEIVE_CUSTOMERS:
       return Object.assign({}, state, {
-        employees: action.employees,
-        loadingEmployees: false,
+        customers: action.customers,
+        loadingCustomers: false,
       });
-    case REQUEST_EMPLOYEES:
+    case REQUEST_CUSTOMERS:
       return Object.assign({}, state, {
-        loadingEmployees: true,
+        loadingCustomers: true,
       });
-    case START_EMPLOYEE_ADD:
+    case START_CUSTOMER_ADD:
       return Object.assign({}, state, {
-        addingEmployee: true,
+        addingCustomer: true,
       });
-    case ADD_EMPLOYEE:
+    case ADD_CUSTOMER:
       return Object.assign({}, state, {
-        addingEmployee: false,
-        employees: [
-          ...state.employees,
-          action.employee,
+        addingCustomer: false,
+        customers: [
+          ...state.customers,
+          action.customer,
         ],
       });
     default:

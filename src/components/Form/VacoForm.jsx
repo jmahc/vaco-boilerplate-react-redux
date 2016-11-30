@@ -19,8 +19,8 @@ const validate = (values) => {
   const errors = {};
   const requiredFields = [
     'firstName',
-    // 'lastName',
-    // 'email',
+    'lastName',
+    'email',
     // 'phone',
   ];
   requiredFields.forEach((field) => {
@@ -28,9 +28,9 @@ const validate = (values) => {
       errors[field] = 'Required';
     }
   });
-  // if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-  //   errors.email = 'Invalid email address';
-  // }
+  if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
   // if (values.phones && values.phones.length > 3) {
   //   errors.phones = [];
   //   errors.phones._error = 'Too many phone fields!';
@@ -56,20 +56,29 @@ const renderInput = ({
 );
 /* eslint-enable react/prop-types */
 
-let VacoForm = ({ handleSubmit, pristine, reset, submitting, fields: { firstName } }) => ( // eslint-disable-line no-unused-vars
+let VacoForm = ({ // eslint-disable-line import/no-mutable-exports
+  handleSubmit,
+  pristine,
+  reset,
+  submitting,
+  /* eslint-disable no-unused-vars */
+  fields: {
+    firstName,
+    lastName,
+    email,
+  },
+  /* eslint-enable no-unused-vars */
+}) => (
   <form onSubmit={handleSubmit}>
     <div>
       <Field name="firstName" component={renderInput} label="First Name" />
     </div>
-    {/* <div>
+    <div>
       <Field name="lastName" component={renderInput} label="Last Name" />
     </div>
     <div>
       <Field name="email" component={renderInput} label="Email" />
     </div>
-    <div>
-      <Field name="phone" component={renderInput} label="Phone" />
-    </div> */}
     <div>
       <Button
         primary
@@ -110,8 +119,8 @@ VacoForm = reduxForm({
                           // where your form's state will be mounted.
   fields: [
     'firstName',
-    // 'lastName',
-    // 'email',
+    'lastName',
+    'email',
     // 'phone',
   ],
   validate,
@@ -128,16 +137,17 @@ VacoForm = connect(
     // --- const favoriteColorValue = selector(state, 'favoriteColor');
     // or together as a group
     // --- const { firstName, lastName } = selector(state, 'firstName', 'lastName');
-    const { firstName /* , lastName, email, phone*/ } = selector(state, 'firstName',
+    const { firstName, lastName, email } = selector(state, 'firstName',
     'lastName', 'email', 'phone');
     console.log('Selector has the following values:     ----->');
     console.info(firstName);
-    // console.info(lastName);
-    // console.info(email);
-    // console.info(phone);
+    console.info(lastName);
+    console.info(email);
 
     return {
       firstName,
+      lastName,
+      email,
       // fullName: `${firstName || ''} ${lastName || ''}`,
       // email: `${email}`,
       // phone: `${phone}`,

@@ -63,7 +63,7 @@ if (__DEVELOPMENT__ && module.hot) {
   // NOTE: use this to test..
   // const testWithThisFileName = '';
 
-  module.hot.accept(() => {
+  module.hot.accept('./index.jsx', () => {
     unmountComponentAtNode(documentRoot);
 
     renderApp();

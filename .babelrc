@@ -1,8 +1,9 @@
 {
   "presets": [
-    "react",
     "es2015",
-    "stage-0"
+    "stage-0",
+    "stage-2",
+    "react"
   ],
   "plugins": [
     "react-hot-loader/babel",
@@ -12,27 +13,5 @@
     "transform-react-display-name",
     "transform-class-properties",
     "transform-react-jsx-source"
-  ],
-  "env": {
-    "development": {
-      "plugins": [
-        "react-hot-loader/babel",
-        "typecheck",
-        [
-          "react-transform", {
-            "transforms": [
-              {
-                "transform": "react-transform-catch-errors",
-                "imports": [
-                  "react",
-                  "redbox-react"
-                ]
-              }
-            ],
-            "transformReactLikeFunctionsToClasses": true
-          }
-        ]
-      ]
-    }
-  }
+  ]
 }
